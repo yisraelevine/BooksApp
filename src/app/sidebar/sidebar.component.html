@@ -1,0 +1,14 @@
+<div class="max-width-100" *ngFor="let item of global.data.sidebar">
+    <div class="clickable font-size-14 overflow-ellipsis" (click)="global.getData(item.id)" [class.active]="isDeepest(item.id)">
+        <i [ngClass]="isDeepest(item.id) ? 'fa fa-folder-open-o' : 'fa fa-folder-o'"></i>
+        {{ item.heading }}
+    </div>
+    <div class="container list margin-start-10">
+        <div class="max-width-100" *ngFor="let child of item.children">
+            <div class="clickable font-size-14 overflow-ellipsis" (click)="global.getData(child.id)" [class.active]="isDeepest(child.id)">
+                <i [ngClass]="isDeepest(child.id) ? 'fa fa-folder-open-o' : 'fa fa-folder-o'"></i>
+                {{ child.heading }}
+            </div>
+        <div>
+    </div>
+<div>

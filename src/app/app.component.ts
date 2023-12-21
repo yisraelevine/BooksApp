@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { GlobalService } from './global.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'BooksApp';
+  constructor(public global: GlobalService) {
+    global.getData(Number(window.location.pathname.replace(/\D/g, '')));
+  }
 }

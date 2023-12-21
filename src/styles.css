@@ -1,1 +1,225 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    transition-duration: 800ms;
+    margin: 0;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+h2,
+h4 {
+    margin: 0;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: #0275d8;
+    cursor: pointer;
+}
+
+.light-gray-background {
+    background-color: #f7f7f7;
+}
+
+.dark-gray-color {
+    color: #555;
+}
+
+.hover-color-red:hover {
+    color: red;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.gap-5 {
+    display: flex;
+    gap: 5px;
+}
+
+.gap-10 {
+    display: flex;
+    gap: 10px;
+}
+
+.gap-15 {
+    display: flex;
+    gap: 15px;
+}
+
+.gap-30 {
+    display: flex;
+    gap: 30px;
+}
+
+.margin-inline-40 {
+    margin-inline: 40px 0;
+}
+
+.margin-start-10 {
+    margin-inline-start: 10px;
+}
+
+.max-width-1140 {
+    max-width: 1140px;
+}
+
+.max-width-100 {
+    max-width: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.padding-20 {
+    padding: 20px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.center {
+    justify-content: center;
+}
+
+.justify-space-between {
+    justify-content: space-between;
+}
+
+.wide-flex-container {
+    max-width: 1140px;
+    display: flex;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.clickable {
+    color: #0275d8;
+    cursor: pointer;
+}
+
+.clickable:hover,
+.clickable.active {
+    color: red;
+}
+
+.align-items-start {
+    align-items: start;
+}
+
+.no-user-select {
+    user-select: none;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.tree {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+i {
+    color: #555;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+.overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.width-300 {
+    width: 300px;
+}
+
+.max-width-50 {
+    max-width: 50%;
+}
+
+.split-container-line {
+    background-color: #cdcdcd;
+}
+
+.split-container-line {
+    width: 1px;
+}
+
+.top-border {
+    border-top: 1px solid #cdcdcd;
+    padding-top: 10px;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: justify;
+}
+
+.split-container {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    margin: 0 auto;
+    max-width: 1140px;
+}
+
+@media (max-width: 768px) {
+    .split-container {
+        flex-direction: column-reverse;
+    }
+
+    .split-container-line {
+        height: 1px;
+        width: 100%;
+    }
+}
+
+.transition-opacity {
+    opacity: .1;
+    transition-duration: 1.5s;
+}
+
+.cup {
+    font-weight: bold;
+}
