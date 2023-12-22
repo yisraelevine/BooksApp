@@ -9,9 +9,9 @@ export class GlobalService {
 	constructor(private http: HttpClient) { }
 	base: HTMLBaseElement | null = document.querySelector('base');
 	data: data = {
-		children: [],
+		children: undefined,
 		sidebar: [],
-		page: { text: '', haoros: '' },
+		page: undefined,
 		tree: [],
 		navigation: undefined
 	};
@@ -20,37 +20,32 @@ export class GlobalService {
 	isLoading = false;
 	getData(id: number) {
 		this.isLoading = true;
-		this.http.get<data>(
-			'api',
-			{
-				params:
-				{
-					id
-				},
-				responseType: 'json'
-			}
-		).subscribe({
+		this.http.get<data>('api', {
+			params: { id },
+			responseType: 'json'
+		}).subscribe({
 			next: (data: data) => {
 				if (data.tree.length === 0) {
-					history.replaceState(null, '', '');
-					if (this.base !== null) this.base.href = '';
+					history.pushState(null, '', '');
+					this.changeBase('');
 					document.title = 'ספריית ליובאוויטש';
 				}
 				else {
-					history.replaceState(null, '', id.toString());
-					if (this.base !== null) this.base.href = id.toString();
+					history.pushState(null, '', id.toString());
+					this.changeBase(id.toString());
 					document.title = data.tree[data.tree.length - 1].heading + ' - ספריית ליובאוויטש';
 				}
 				this.data = data;
 				this.topOpenedId = data.tree[0]?.id;
 				this.deepestOpenedId = data.tree.length > 1 ? data.tree[1].id : this.topOpenedId;
 			},
-			complete: () => {
-				this.isLoading = false;
-			}
+			complete: () => this.isLoading = false
 		});
 	}
 	removeHtmlCode(htmlCode: string): string {
 		return new DOMParser().parseFromString(htmlCode, 'text/html').body.textContent || '';
+	}
+	changeBase(newBase: string) {
+		if (this.base !== null) this.base.href = newBase
 	}
 }
