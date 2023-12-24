@@ -8,6 +8,6 @@ import { GlobalService } from './global.service';
 export class AppComponent {
   constructor(public global: GlobalService) {
     global.getData(Number(window.location.pathname.replace(/\D/g, '')));
-    window.addEventListener('popstate', () => global.getData(Number(window.location.pathname.replace(/\D/g, ''))));
+    window.addEventListener('popstate', () => global.getData(Number(window.location.pathname.replace(/\D/g, '')), true));
   }
 }

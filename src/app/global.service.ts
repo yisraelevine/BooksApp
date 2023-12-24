@@ -18,7 +18,7 @@ export class GlobalService {
 	deepestOpenedId: number | undefined
 	topOpenedId: number | undefined
 	isLoading = false
-	getData(id: number) {
+	getData(id: number, preventPushState?: boolean) {
 		this.isLoading = true
 		this.http.get<data>('api', {
 			params: { id },
@@ -26,11 +26,13 @@ export class GlobalService {
 		}).subscribe({
 			next: (data: data) => {
 				if (data.tree.length === 0) {
-					this.navigate()
+					if (!preventPushState) this.pushState()
+					this.changeBase()
 					document.title = 'ספריית ליובאוויטש'
 				}
 				else {
-					this.navigate(id.toString())
+					if (!preventPushState) this.pushState(id.toString())
+					this.changeBase(id.toString())
 					document.title = data.tree[data.tree.length - 1].heading + ' - ספריית ליובאוויטש'
 				}
 				this.data = data
@@ -43,9 +45,10 @@ export class GlobalService {
 	removeHtmlCode(htmlCode: string): string {
 		return new DOMParser().parseFromString(htmlCode, 'text/html').body.textContent || ''
 	}
-	navigate(path?: string) {
-		path = './' + (path || '')
-		history.pushState(null, '', path)
-		if (this.base !== null) this.base.href = path
+	pushState(path?: string) {
+		history.pushState(null, '', './' + (path || ''))
+	}
+	changeBase(path?: string) {
+		if (this.base !== null) this.base.href = './' + (path || '')
 	}
 }
