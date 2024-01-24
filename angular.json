@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "BooksApp:build:production"
+              "buildTarget": "BooksApp:build:production"
             },
             "development": {
-              "browserTarget": "BooksApp:build:development"
+              "buildTarget": "BooksApp:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "BooksApp:build"
+            "buildTarget": "BooksApp:build"
           }
         },
         "test": {
