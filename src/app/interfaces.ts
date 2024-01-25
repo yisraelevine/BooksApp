@@ -30,4 +30,16 @@ export interface data {
 	page: page | undefined
 	tree: tree[]
 	navigation: navigation | undefined
+	sections: sections[]
+}
+export interface sections {
+	id: number
+	heading: string
+	parent_id: number
+	children: undefined
+}
+export interface search {
+	sections: sections[]
+	statistics: undefined
+	results: undefined
 }

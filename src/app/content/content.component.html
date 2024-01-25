@@ -15,3 +15,4 @@
     <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(replaceString(global.data.page.text))"></div>
     <div class="top-border" *ngIf="extractNonHtmlCode(replaceString(global.data.page.haoros)).length > 0" [innerHTML]="sanitizer.bypassSecurityTrustHtml(global.data.page.haoros)"></div>
 </div>
+<app-search *ngIf="global.data.sections"></app-search>

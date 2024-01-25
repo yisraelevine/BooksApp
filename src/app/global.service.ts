@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { data } from './interfaces';
+import { data, search } from './interfaces';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,34 +13,57 @@ export class GlobalService {
 		sidebar: [],
 		page: undefined,
 		tree: [],
-		navigation: undefined
+		navigation: undefined,
+		sections: []
 	}
 	deepestOpenedId: number | undefined
 	topOpenedId: number | undefined
 	isLoading = false
 	getData(id: number, preventPushState?: boolean) {
 		this.isLoading = true
-		this.http.get<data>('api', {
-			params: { id },
-			responseType: 'json'
-		}).subscribe({
-			next: (data: data) => {
-				if (data.tree.length === 0) {
+		if (id > 0)
+			this.http.get<data>('api/main', {
+				params: { id },
+				responseType: 'json'
+			}).subscribe({
+				next: (data: data) => {
+					if (data.tree.length === 0) {
+						if (!preventPushState) this.pushState()
+						this.changeBase()
+						document.title = 'ספריית ליובאוויטש'
+					}
+					else {
+						if (!preventPushState) this.pushState(id.toString())
+						this.changeBase(id.toString())
+						document.title = data.tree[data.tree.length - 1].heading + ' - ספריית ליובאוויטש'
+					}
+					this.data.sections = []
+					this.data = data
+					this.topOpenedId = data.tree[0]?.id
+					this.deepestOpenedId = data.tree.length > 1 ? data.tree[1].id : this.topOpenedId
+				},
+				complete: () => this.isLoading = false
+			})
+		else
+			this.http.get<search>('api/search', {
+				params: {},
+				responseType: 'json'
+			}).subscribe({
+				next: (data: search) => {
 					if (!preventPushState) this.pushState()
 					this.changeBase()
 					document.title = 'ספריית ליובאוויטש'
-				}
-				else {
-					if (!preventPushState) this.pushState(id.toString())
-					this.changeBase(id.toString())
-					document.title = data.tree[data.tree.length - 1].heading + ' - ספריית ליובאוויטש'
-				}
-				this.data = data
-				this.topOpenedId = data.tree[0]?.id
-				this.deepestOpenedId = data.tree.length > 1 ? data.tree[1].id : this.topOpenedId
-			},
-			complete: () => this.isLoading = false
-		})
+					this.data.children = undefined
+					this.data.sidebar = data.sections.filter(e => e.parent_id === 0)
+					this.data.page = undefined
+					this.data.tree = []
+					this.data.navigation = undefined
+					this.data.sections = data.sections
+					this.topOpenedId = undefined
+					this.deepestOpenedId = undefined
+				},
+				complete: () => this.isLoading = false
+			})
 	}
 	removeHtmlCode(htmlCode: string): string {
 		return new DOMParser().parseFromString(htmlCode, 'text/html').body.textContent || ''

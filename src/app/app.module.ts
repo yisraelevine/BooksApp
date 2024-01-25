@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContentComponent } from './content/content.component';
 import { HeaderComponent } from './header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import { NavigationComponent } from './navigation/navigation.component';
     SidebarComponent,
     ContentComponent,
     HeaderComponent,
-    NavigationComponent
+    NavigationComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
