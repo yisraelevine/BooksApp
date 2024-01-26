@@ -1,9 +1,27 @@
-<form  (ngSubmit)="onSubmit()" class="search-form-container">
-    <input type="text" placeholder="חפש" class="search-inputs">
+<form (ngSubmit)="onSubmit()" class="search-form-container">
+    <input type="text" placeholder="חפש" class="search-inputs" name="phrase" [(ngModel)]="model.phrase">
     <select class="search-inputs" name="section" [(ngModel)]="model.section">
-        <option value="0" selected>המאגר כולו</option>
-        <option [value]="item.id" *ngFor="let item of global.data.sections" [class.light-gray-background-2]="item.parent_id === 0">
+        <option [value]="0" selected>המאגר כולו</option>
+        <option [value]="item.id" *ngFor="let item of global.data.sections"
+            [class.light-gray-background-2]="item.parent_id === 0">
             {{item.heading}}</option>
     </select>
     <button type="submit" class="search-submit">חפש!</button>
 </form>
+<div *ngIf="global.isLoadingStatistics || global.data.statistics" class="flex large-gap column">
+    <h2 class="dark-gray-color">תוצאות החיפוש לפי המאגרים</h2>
+    <div class="flex gap-5 column">
+        <div *ngFor="let item of generateStatistics()" class="flex justify-space-between" [class.margin-start-30]="!item.is_parent">
+            <div class="flex gap-5">
+                <div *ngIf="item.is_parent" class="bold dark-gray-color">נמצא במדור:</div>
+                <div class="clickable" (click)="onClick()" [class.bold]="item.is_parent">{{ item.heading }}</div>
+            </div>
+            <div *ngIf="!item.is_parent" class="dark-gray-color">
+                <div *ngIf="global.isLoadingStatistics">
+                    <div class="loader"></div>
+                </div>
+                <div *ngIf="!global.isLoadingStatistics">{{ item.count }}</div>
+            </div>
+        </div>
+    </div>
+</div>

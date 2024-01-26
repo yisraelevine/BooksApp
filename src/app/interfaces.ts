@@ -24,13 +24,11 @@ export interface navigation {
 	next: number | undefined
 	previous: number | undefined
 }
-export interface data {
-	children: children[] | undefined
-	sidebar: sidebar[]
-	page: page | undefined
-	tree: tree[]
-	navigation: navigation | undefined
-	sections: sections[]
+export interface sections {
+	id: number
+	heading: string
+	parent_id: number
+	children: undefined
 }
 export interface sections {
 	id: number
@@ -38,8 +36,20 @@ export interface sections {
 	parent_id: number
 	children: undefined
 }
+export interface statistics {
+	id: number
+	count: number
+}
 export interface search {
 	sections: sections[]
-	statistics: undefined
 	results: undefined
+}
+export interface data {
+	children: children[] | undefined
+	sidebar: sidebar[] | undefined
+	page: page | undefined
+	tree: tree[] | undefined
+	navigation: navigation | undefined
+	sections: sections[] | undefined
+	statistics: statistics[] | undefined
 }

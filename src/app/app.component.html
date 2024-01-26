@@ -1,6 +1,6 @@
 <app-header class="full-width"></app-header>
-<div *ngIf="global.data.sidebar.length > 0" class="split-container">
+<div class="split-container" *ngIf="global.data.sidebar">
     <app-sidebar class="list width-300 max-width-50"></app-sidebar>
     <div class="split-container-line"></div>
-    <app-content [class.transition-opacity]="global.isLoading" class="gap-10 column overflow-x-hidden full-width"></app-content>
+    <app-content class="gap-10 column overflow-x-hidden full-width"></app-content>
 </div>
