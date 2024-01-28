@@ -6,7 +6,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ContentComponent } from './content/content.component';
 import { HeaderComponent } from './header/header.component';
-import { NavigationComponent } from './navigation/navigation.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 
@@ -16,7 +15,6 @@ import { FormsModule } from '@angular/forms';
     SidebarComponent,
     ContentComponent,
     HeaderComponent,
-    NavigationComponent,
     SearchComponent
   ],
   imports: [

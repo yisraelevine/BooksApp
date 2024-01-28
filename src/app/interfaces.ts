@@ -1,8 +1,8 @@
 export interface children {
 	id: number
 	heading: string
-	lid: number
-	lheading: string
+	lid: number | undefined
+	lheading: string | undefined
 }
 export interface sidebar {
 	id: number
@@ -30,26 +30,17 @@ export interface sections {
 	parent_id: number
 	children: undefined
 }
-export interface sections {
-	id: number
-	heading: string
-	parent_id: number
-	children: undefined
-}
 export interface statistics {
 	section_id: number
 	count: number
+	is_parent?: boolean
+	heading?: string
 }
-export interface search {
-	sections: sections[]
-	results: undefined
-}
-export interface data {
-	children: children[] | undefined
-	sidebar: sidebar[] | undefined
-	page: page | undefined
+export interface main {
 	tree: tree[] | undefined
+	sidebar: sidebar[] | undefined
+	children: children[] | undefined
+	page: page | undefined
 	navigation: navigation | undefined
 	sections: sections[] | undefined
-	statistics: statistics[] | undefined
 }

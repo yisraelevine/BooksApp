@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { data, statistics } from './interfaces';
+import { main, statistics } from './interfaces';
 
 @Injectable({
 	providedIn: 'root'
@@ -8,47 +8,64 @@ import { data, statistics } from './interfaces';
 export class GlobalService {
 	constructor(private http: HttpClient) { }
 	base: HTMLBaseElement | null = document.querySelector('base')
-	data: data = {
+
+	main: main = {
 		children: undefined,
 		sidebar: undefined,
 		page: undefined,
 		tree: undefined,
 		navigation: undefined,
-		sections: undefined,
-		statistics: undefined
+		sections: undefined
 	}
+	statistics: statistics[] | undefined
+
 	deepestOpenedId: number | undefined
-	isLoading = false
+	isLoadingMain = false
 	isLoadingStatistics = false
-	getData(id: number, preventPushState?: boolean) {
-		this.isLoading = true
-		this.http.get<data>('api/main', {
-			params: { id },
-			responseType: 'json'
+
+	getMain(id: number, preventPushState?: boolean) {
+		this.isLoadingMain = true
+		this.http.get<main>('api/main', {
+			params: { id }, responseType: 'json'
 		}).subscribe({
-			next: (data: data) => {
-				if (data.tree) {
-					this.changeTitle(data.tree[data.tree.length - 1].heading)
+			next: (data: main) => {
+				if (data.sections) {
+					data.sidebar = data.sections.filter(e => e.parent_id === 0)
+					this.deepestOpenedId = undefined
+
+					if (!preventPushState) this.pushState()
+					this.changeTitle()
+					this.changeBase()
+				}
+				else if (data.tree) {
 					this.deepestOpenedId = data.tree.length > 1 ? data.tree[1].id : data.tree[0].id
-				} else this.changeTitle()
-				if (!preventPushState) this.pushState(id)
-				this.changeBase(id)
-				if (data.sections) data.sidebar = data.sections.filter(e => e.parent_id === 0)
-				this.data = data
+
+					if (!preventPushState) this.pushState(id)
+					this.changeTitle(data.tree[data.tree.length - 1].heading)
+					this.changeBase(id)
+				}
+				this.main = data
 			},
-			complete: () => this.isLoading = false
+			complete: () => this.isLoadingMain = false,
+			error: () => this.isLoadingMain = false
 		})
 	}
 	getStatistics(phrase: string) {
-		this.deepestOpenedId = undefined
-		this.data.statistics = undefined
 		this.isLoadingStatistics = true
 		this.http.get<statistics[]>('api/statistics', {
-			params: { phrase },
-			responseType: 'json'
+			params: { phrase }, responseType: 'json'
 		}).subscribe({
-			next: (data: statistics[]) => this.data.statistics = data,
+			next: (data: statistics[]) => this.statistics = this.main.sections?.map(e => ({
+				section_id: e.id,
+				count: data.filter(d => d.section_id === e.id)[0]?.count || 0,
+				is_parent: e.parent_id === 0,
+				heading: e.heading
+			})),
 			complete: () => this.isLoadingStatistics = false,
+			error: () => {
+				this.isLoadingStatistics = false
+				this.statistics = undefined
+			}
 		})
 	}
 	removeHtmlCode(htmlCode: string): string {
