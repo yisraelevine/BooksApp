@@ -28,7 +28,6 @@ export interface sections {
 	id: number
 	heading: string
 	parent_id: number
-	children: undefined
 }
 export interface statistics {
 	section_id: number

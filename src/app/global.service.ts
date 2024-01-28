@@ -30,7 +30,7 @@ export class GlobalService {
 		}).subscribe({
 			next: (data: main) => {
 				if (data.sections) {
-					data.sidebar = data.sections.filter(e => e.parent_id === 0)
+					data.sidebar = data.sections.filter(e => e.parent_id === 0).map(e => ({ ...e, children: undefined }))
 					this.deepestOpenedId = undefined
 
 					if (!preventPushState) this.pushState()
@@ -52,10 +52,11 @@ export class GlobalService {
 	}
 	getStatistics(phrase: string) {
 		this.isLoadingStatistics = true
+		this.generateStatistics()
 		this.http.get<statistics[]>('api/statistics', {
 			params: { phrase }, responseType: 'json'
 		}).subscribe({
-			next: (data: statistics[]) => data,
+			next: (data: statistics[]) => this.generateStatistics(data),
 			complete: () => this.isLoadingStatistics = false,
 			error: () => {
 				this.isLoadingStatistics = false
@@ -74,5 +75,15 @@ export class GlobalService {
 	}
 	changeTitle(name?: string) {
 		document.title = (name ? (name + ' - ') : '') + 'ספריית ליובאוויטש'
+	}
+	generateStatistics(statistics?: statistics[]) {
+		this.statistics = this.main.sections?.map(e => ({
+			section_id: e.id,
+			count: statistics?.filter(d => d.section_id === e.id)[0]?.count || 0,
+			is_parent: e.parent_id === 0,
+			heading: e.heading
+		})).filter(e => !statistics || e.count !== 0 ||
+			(e.is_parent && this.main.sections?.some(s => s.parent_id === e.section_id &&
+				statistics.some(a => a.section_id === s.id && a.count !== 0))))
 	}
 }

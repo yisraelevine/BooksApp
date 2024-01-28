@@ -6,14 +6,7 @@ import { GlobalService } from '../../global.service';
   templateUrl: './statistics.component.html'
 })
 export class StatisticsComponent {
-  constructor(public global: GlobalService) {
-    global.statistics = global.main.sections?.map(e => ({
-      section_id: e.id,
-      count: global.statistics?.filter(d => d.section_id === e.id)[0]?.count || 0,
-      is_parent: e.parent_id === 0,
-      heading: e.heading
-    }))
-  }
+  constructor(public global: GlobalService) { }
   onClick() {
     alert('החיפוש בשלבי פיתוח נסה שוב יותר מאוחר')
   }
