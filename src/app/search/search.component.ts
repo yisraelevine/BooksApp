@@ -23,7 +23,7 @@ export class SearchComponent {
       return {
         id: e.id,
         heading: e.heading,
-        count: this.global.data.statistics?.filter(s => s.id === e.id)[0]?.count || 0,
+        count: this.global.data.statistics?.filter(s => s.section_id === e.id)[0]?.count || 0,
         is_parent: e.parent_id === 0
       }
     })

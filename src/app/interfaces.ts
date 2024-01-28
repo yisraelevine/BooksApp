@@ -37,7 +37,7 @@ export interface sections {
 	children: undefined
 }
 export interface statistics {
-	id: number
+	section_id: number
 	count: number
 }
 export interface search {
