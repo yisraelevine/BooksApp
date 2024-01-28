@@ -8,19 +8,4 @@
     </select>
     <button type="submit" class="search-submit">חפש!</button>
 </form>
-<div *ngIf="global.statistics || global.isLoadingStatistics" class="flex large-gap column">
-    <h2 class="dark-gray-color">תוצאות החיפוש לפי המאגרים</h2>
-    <div class="flex gap-5 column">
-        <div *ngFor="let item of global.statistics" class="flex justify-space-between"
-            [class.margin-start-30]="!item.is_parent">
-            <div class="flex gap-5">
-                <div *ngIf="item.is_parent" class="bold dark-gray-color">נמצא במדור:</div>
-                <div class="clickable" (click)="onClick()" [class.bold]="item.is_parent">{{ item.heading }}</div>
-            </div>
-            <div *ngIf="!item.is_parent" class="dark-gray-color">
-                <div *ngIf="global.isLoadingStatistics" class="loader"></div>
-                <div *ngIf="!global.isLoadingStatistics">{{ item.count }}</div>
-            </div>
-        </div>
-    </div>
-</div>
+<app-statistics *ngIf="global.statistics || global.isLoadingStatistics" class="flex large-gap column"></app-statistics>

@@ -55,12 +55,7 @@ export class GlobalService {
 		this.http.get<statistics[]>('api/statistics', {
 			params: { phrase }, responseType: 'json'
 		}).subscribe({
-			next: (data: statistics[]) => this.statistics = this.main.sections?.map(e => ({
-				section_id: e.id,
-				count: data.filter(d => d.section_id === e.id)[0]?.count || 0,
-				is_parent: e.parent_id === 0,
-				heading: e.heading
-			})),
+			next: (data: statistics[]) => data,
 			complete: () => this.isLoadingStatistics = false,
 			error: () => {
 				this.isLoadingStatistics = false

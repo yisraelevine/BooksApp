@@ -8,6 +8,7 @@ import { ContentComponent } from './content/content.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
+import { StatisticsComponent } from './search/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     SidebarComponent,
     ContentComponent,
     HeaderComponent,
-    SearchComponent
+    SearchComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
