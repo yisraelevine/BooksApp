@@ -1,0 +1,8 @@
+<div>
+    <span *ngIf="global.main.navigation!.previous" (click)="global.getMain(global.main.navigation!.previous)"
+        class="heading clickable">&lt;&lt;</span>
+</div>
+<div>
+    <span *ngIf="global.main.navigation!.next" (click)="global.getMain(global.main.navigation!.next)"
+        class="heading clickable">&gt;&gt;</span>
+</div>

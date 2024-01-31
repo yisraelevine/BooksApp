@@ -1,3 +1,5 @@
+import { SafeHtml } from "@angular/platform-browser"
+
 export interface children {
 	id: number
 	heading: string
@@ -13,8 +15,8 @@ export interface sidebar {
 	}[] | undefined
 }
 export interface page {
-	text: string
-	haoros: string
+	text: SafeHtml
+	haoros: SafeHtml
 }
 export interface tree {
 	id: number
@@ -34,6 +36,15 @@ export interface statistics {
 	count: number
 	is_parent?: boolean
 	heading?: string
+}
+export interface result {
+	mafteach_id: number
+	tree: string
+	text: string
+}
+export interface search {
+	count: number
+	results: result[]
 }
 export interface main {
 	tree: tree[] | undefined

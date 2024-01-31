@@ -1,0 +1,6 @@
+<div *ngFor="let item of global.main.children" class="flex full-width justify-space-between">
+    <span (click)="global.getMain(item.id)" class="heading clickable">{{
+        item.heading }}</span>
+    <span *ngIf="item.lid && item.lheading" (click)="global.getMain(item.lid)" class="heading clickable">{{
+        item.lheading }}</span>
+</div>

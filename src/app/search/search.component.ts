@@ -6,16 +6,9 @@ import { GlobalService } from '../global.service';
   templateUrl: './search.component.html'
 })
 export class SearchComponent {
-  model: any = {
-    section: 0,
-    phrase: ''
-  }
   constructor(public global: GlobalService) { }
   onSubmit() {
-    this.model.section = 0
-    this.global.getStatistics(this.model.phrase)
-  }
-  onClick() {
-    alert('החיפוש בשלבי פיתוח נסה שוב יותר מאוחר')
+    if (this.global.search_form.section_id > 0) this.global.getSearch()
+    else this.global.getStatistics()
   }
 }

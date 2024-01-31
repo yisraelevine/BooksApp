@@ -1,0 +1,5 @@
+<div *ngFor="let item of global.main.tree let last = last">
+    <span class="clickable font-size-20 bold" (click)="global.getMain(item.id)">{{
+        item.heading }}</span>
+    <span *ngIf="!last" class="font-size-20 no-user-select"> &gt;</span>
+</div>

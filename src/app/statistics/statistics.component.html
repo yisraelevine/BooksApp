@@ -4,7 +4,7 @@
         [class.margin-start-30]="!item.is_parent">
         <div class="flex gap-5">
             <div *ngIf="item.is_parent" class="bold dark-gray-color">נמצא במדור:</div>
-            <div class="clickable" (click)="onClick()" [class.bold]="item.is_parent">{{ item.heading }}</div>
+            <div class="clickable" (click)="onClick(item.section_id)" [class.bold]="item.is_parent">{{ item.heading }}</div>
         </div>
         <div *ngIf="!item.is_parent" class="dark-gray-color">
             <div *ngIf="global.isLoadingStatistics" class="loader"></div>

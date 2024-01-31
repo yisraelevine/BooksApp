@@ -7,17 +7,27 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContentComponent } from './content/content.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from './search/search.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { ResultsComponent } from './results/results.component';
 import { FormsModule } from '@angular/forms';
-import { StatisticsComponent } from './search/statistics/statistics.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { ChildrenComponent } from './children/children.component';
+import { PageComponent } from './page/page.component';
+import { TreeComponent } from './tree/tree.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     SidebarComponent,
     ContentComponent,
-    HeaderComponent,
+    TreeComponent,
+    ChildrenComponent,
+    PageComponent,
+    NavigationComponent,
     SearchComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

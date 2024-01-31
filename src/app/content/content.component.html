@@ -1,25 +1,5 @@
-<div class="tree" *ngIf="global.main.tree">
-    <div *ngFor="let item of global.main.tree let last = last">
-        <span class="clickable font-size-20 bold" (click)="global.getMain(item.id)">{{ global.removeHtmlCode(item.heading) }}</span>
-        <span *ngIf="!last" class="font-size-20 no-user-select"> ></span>
-    </div>
-</div>
-<div *ngIf="global.main.navigation" class="flex justify-space-between">
-    <div>
-        <span *ngIf="global.main.navigation.previous" (click)="global.getMain(global.main.navigation.previous)" class="heading clickable"><<</span>
-    </div>
-    <div>
-        <span *ngIf="global.main.navigation.next" (click)="global.getMain(global.main.navigation.next)" class="heading clickable">>></span>
-    </div>
-</div>
-<div class="list" *ngIf="global.main.children">
-    <div class="flex full-width justify-space-between" *ngFor="let item of global.main.children">
-        <span class="heading clickable" (click)="global.getMain(item.id)">{{ global.removeHtmlCode(item.heading) }}</span>
-        <span *ngIf="item.lid && item.lheading" class="heading clickable" (click)="global.getMain(item.lid)">{{ global.removeHtmlCode(item.lheading) }}</span>
-    </div>
-</div>
-<div class="page" *ngIf="global.main.page" [class.transition-opacity]="global.isLoadingMain">
-    <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(replaceString(global.main.page.text))"></div>
-    <div class="top-border" *ngIf="extractNonHtmlCode(replaceString(global.main.page.haoros)).length > 0" [innerHTML]="sanitizer.bypassSecurityTrustHtml(global.main.page.haoros)"></div>
-</div>
+<app-tree *ngIf="global.main.tree" class="tree"></app-tree>
+<app-children *ngIf="global.main.children" class="list"></app-children>
+<app-navigation *ngIf="global.main.navigation" class="flex justify-space-between"></app-navigation>
+<app-page *ngIf="global.main.page" (click)="pageClickEvent($event)" [class.transition-opacity]="global.isLoadingMain" class="page"></app-page>
 <app-search *ngIf="global.main.sections" class="width-max-content flex large-gap column search-container"></app-search>

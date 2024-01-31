@@ -1,0 +1,11 @@
+<h3 class="dark-gray-color">
+    תוצאות החיפוש עבור: 
+    <span class="color-red">{{ global.current_phrase }}</span>
+</h3>
+<h5>נמצאו {{ global.search!.count }} תוצאות</h5>
+<div class="flex gap-10 column">
+    <div *ngFor="let item of global.search!.results">
+        <span class="clickable" (click)="global.getMain(item.mafteach_id, false, true)">{{ item.tree }}</span>
+        <div [innerHTML]="item.text"></div>
+    </div>
+</div>

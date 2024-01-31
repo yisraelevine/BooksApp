@@ -14,8 +14,8 @@
                 <span class="no-user-select"> /</span>
             </div>
             <div *ngFor="let item of global.main.tree">
-                <span class="clickable" (click)="global.getMain(item.id)">{{ global.removeHtmlCode(item.heading)
-                    }}</span>
+                <span class="clickable" (click)="global.getMain(item.id)">{{
+                    item.heading }}</span>
                 <span class="no-user-select"> /</span>
             </div>
         </div>
