@@ -30,7 +30,8 @@ export class GlobalService {
 	isLoadingStatistics = false
 	clickedPage = false
 	current_phrase = ''
-	current_offset = 0
+	current_offset: number | undefined
+	offsets: number[] | undefined
 
 	getMain(id: number, preventPushState?: boolean, mark?: boolean) {
 		this.isLoadingMain = true
@@ -93,12 +94,15 @@ export class GlobalService {
 			},
 			responseType: 'json'
 		}).subscribe({
-			next: (data: search) => this.search = {
-				...data,
-				results: data.results.map(e => ({
-					...e,
-					text: this.markText(e.text, phrase, true)
-				}))
+			next: (data: search) => {
+				this.search = {
+					...data,
+					results: data.results.map(e => ({
+						...e,
+						text: this.markText(e.text, phrase, true)
+					}))
+				}
+				this.offsets = this.generateOffsets(data.count, offset || 0)
 			},
 			complete: () => {
 				this.current_offset = offset || 0
@@ -124,13 +128,13 @@ export class GlobalService {
 		document.title = (name ? (name + ' - ') : '') + 'ספריית ליובאוויטש'
 	}
 
-	markText(text: string, phrase: string, remove_html?: boolean) {
-		if (remove_html) {
+	markText(text: string, phrase: string, trim?: boolean) {
+		if (trim) {
 			text = this.removeHtmlCode(text).replace(/[^א-ת"']+/g, ' ')
 			let search = Math.max(text.search(phrase))
 			if (search === -1) search = text.search(phrase[0])
 			const pos = Math.max(search - 40, 0)
-			text = text.slice(pos, pos + 90).split(' ').slice(1).join(' ')
+			text = text.slice(pos, pos + 100).split(' ').slice(1).join(' ')
 		}
 		return text.replaceAll(phrase, `<span class="color-red">${phrase}</span>`)
 	}
@@ -139,8 +143,15 @@ export class GlobalService {
 		replace_array.forEach(e => text = text.replaceAll(e[0], e[1]))
 		return text
 	}
-	makeHtmlValid(text: SafeHtml) {
-		return this.sanitizer.bypassSecurityTrustHtml(text as string)
+	/**
+	 * Makes HTML content valid by bypassing security and trusting the provided SafeHtml.
+	 *
+	 * @param text - The HTML content to be sanitized and made valid.
+	 * @returns A SafeHtml object representing the sanitized and valid HTML content.
+	 */
+	makeHtmlValid(text: SafeHtml): SafeHtml {
+		// Bypass security and trust the HTML content using Angular's DomSanitizer.
+		return this.sanitizer.bypassSecurityTrustHtml(text as string);
 	}
 
 	/**
@@ -184,10 +195,10 @@ export class GlobalService {
 	 * length is 10 or less
 	 * @returns {number[]} Array of numbers.
 	*/
-	generateOffsets(): number[] {
-		const offsets = Math.ceil(this.search!.count / 25)
+	generateOffsets(count: number, offset: number): number[] {
+		const offsets = Math.ceil(count / 25)
 		const starting_number = Math.min(
-			Math.max(this.current_offset - 5, 0),
+			Math.max(offset - 5, 0),
 			Math.max(offsets - 10, 0)
 		)
 		return Array.from({ length: Math.min(10, Math.max(offsets, 1)) }, (_, index) => index + starting_number);

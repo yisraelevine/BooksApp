@@ -1,2 +1,2 @@
-<div *ngFor="let item of global.generateOffsets()" (click)="global.getSearch(item)"
+<div *ngFor="let item of global.offsets" (click)="global.getSearch(item)"
     class="results-nav-number" [class.current]="item === global.current_offset">{{ item + 1 }}</div>
