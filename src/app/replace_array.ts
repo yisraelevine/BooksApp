@@ -1,4 +1,4 @@
 export default [
-    "[cup]", "<span class=cup>",
-    "[/cup]", "</span>"
+    ["[cup]", "<span class=cup>"],
+    ["[/cup]", "</span>"]
 ]
