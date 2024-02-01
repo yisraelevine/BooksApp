@@ -1,12 +1,13 @@
 <form (ngSubmit)="onSubmit()" class="search-form-container">
-    <input type="text" placeholder="חפש" class="search-inputs" name="phrase" [(ngModel)]="global.search_form.phrase">
-    <select class="search-inputs" name="section" [(ngModel)]="global.search_form.section_id">
+    <input type="text" placeholder="חפש" name="phrase" [(ngModel)]="global.search_form.phrase" class="search-inputs">
+    <select name="section" [(ngModel)]="global.search_form.section_id" class="search-inputs">
         <option value="0" selected>המאגר כולו</option>
         <option [value]="item.id" *ngFor="let item of global.main.sections"
-            [class.light-gray-background-2]="item.parent_id === 0">
-            {{item.heading}}</option>
+            [class.light-gray-background-2]="item.parent_id === 0">{{
+            item.heading }}</option>
     </select>
     <button type="submit" class="search-submit">חפש!</button>
 </form>
-<app-statistics *ngIf="!global.search && (global.statistics || global.isLoadingStatistics)" class="flex large-gap column"></app-statistics>
-<app-results *ngIf="global.search" class="flex large-gap column"></app-results>
+<app-statistics *ngIf="(global.isLoadingStatistics || global.statistics) && !global.search"
+    class="flex large-gap column"></app-statistics>
+<app-results *ngIf="global.search && !global.statistics" class="flex large-gap column"></app-results>

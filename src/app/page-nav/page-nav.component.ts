@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { GlobalService } from '../global.service';
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html'
+  selector: 'app-page-nav',
+  templateUrl: './page-nav.component.html'
 })
-export class NavigationComponent {
+export class PageNavComponent {
   constructor(public global: GlobalService) { }
 }

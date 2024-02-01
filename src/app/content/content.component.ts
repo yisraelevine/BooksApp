@@ -12,10 +12,10 @@ export class ContentComponent {
     event.preventDefault()
     const href = (event.target as HTMLElement).closest('a')?.getAttribute('href')
     if (href) {
-      let element = document.getElementById(href?.substring(2))
-      if (!element) element = document.getElementById(href?.substring(1))
-      if (!element) element = document.getElementsByName(href?.substring(1))[0]
-      element?.scrollIntoView({ behavior: 'smooth' })
+      (document.getElementById(href.slice(2)) ||
+        document.getElementById(href.slice(1)) ||
+        document.getElementsByName(href.slice(1))[0]
+      ).scrollIntoView({ behavior: 'smooth' })
     }
   }
 }

@@ -10,10 +10,11 @@ import { SearchComponent } from './search/search.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ResultsComponent } from './results/results.component';
 import { FormsModule } from '@angular/forms';
-import { NavigationComponent } from './navigation/navigation.component';
+import { PageNavComponent } from './page-nav/page-nav.component';
 import { ChildrenComponent } from './children/children.component';
 import { PageComponent } from './page/page.component';
 import { TreeComponent } from './tree/tree.component';
+import { ResultsNavComponent } from './results-nav/results-nav.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,11 @@ import { TreeComponent } from './tree/tree.component';
     TreeComponent,
     ChildrenComponent,
     PageComponent,
-    NavigationComponent,
+    PageNavComponent,
     SearchComponent,
     StatisticsComponent,
-    ResultsComponent
+    ResultsComponent,
+    ResultsNavComponent
   ],
   imports: [
     BrowserModule,

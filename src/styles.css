@@ -193,6 +193,10 @@ i {
     white-space: nowrap;
 }
 
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
 .width-300 {
     width: 300px;
 }
@@ -289,6 +293,10 @@ i {
     gap: 6px;
 }
 
+.search-container {
+    max-width: 100%;
+}
+
 /* HTML: <div class="loader"></div> */
 .loader {
     height: 10px;
@@ -327,4 +335,21 @@ i {
     0% {
         background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%
     }
+}
+
+.results-nav-number {
+    width: 40px;
+    padding: 4px 0 6px 0;
+    font-size: 18px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    color: #428bca;
+    background-color: white;
+}
+
+.results-nav-number.current {
+    cursor: default;
+    background-color: #428bca;
+    color: white;
 }
