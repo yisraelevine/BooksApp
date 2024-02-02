@@ -27,10 +27,10 @@ export class GlobalService {
 	deepestOpenedId: number | undefined
 	isLoadingMain = false
 	isLoadingStatistics = false
-	clickedPage = false
 	current_phrase = ''
 	current_offset: number | undefined
 	offsets: number[] | undefined
+	selected_page: number | undefined
 
 	getMain(id: number, preventPushState?: boolean, mark?: boolean) {
 		this.isLoadingMain = true
@@ -42,6 +42,7 @@ export class GlobalService {
 					data.sidebar = data.sections.filter(e => e.parent_id === 0).
 						map(e => ({ ...e, children: undefined }))
 				else if (data.page) {
+					this.selected_page = id
 					data.page.text = this.replaceText(data.page.text as string)
 					data.page.text = this.makeHtmlValid(mark ?
 						this.markText(data.page.text as string, this.current_phrase) :

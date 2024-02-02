@@ -368,3 +368,7 @@ h5, h3 {
 .selected-comment:not(a)>*:last-child {
     margin-bottom: 0;
 }
+
+.selected {
+    color: red;
+}
