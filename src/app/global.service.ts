@@ -98,6 +98,7 @@ export class GlobalService {
 			complete: () => {
 				this.current_offset = offset || 0
 				this.current_phrase = phrase
+				document.documentElement.scrollTop = 0
 			}
 		})
 	}
