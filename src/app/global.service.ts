@@ -53,7 +53,10 @@ export class GlobalService {
 				this.changeTitle(data.tree?.at(-1)?.heading || '')
 				this.main = data
 			},
-			complete: () => this.isLoadingMain = false,
+			complete: () => {
+				this.isLoadingMain = false
+				document.documentElement.scrollTop = 0
+			},
 			error: () => this.isLoadingMain = false
 		})
 	}
@@ -98,6 +101,7 @@ export class GlobalService {
 			complete: () => {
 				this.current_offset = offset || 0
 				this.current_phrase = phrase
+				document.documentElement.scrollTop = 0
 			}
 		})
 	}
