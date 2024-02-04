@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
             const url = new URL(window.location.href)
             this.global.search_form_data.phrase = url.searchParams.get('phrase') || ''
             this.global.search_form_data.section_id = +(url.searchParams.get('section_id') || '')
-            console.log()
             if (url.pathname.includes('search')) {
                 if (idInSections(this.global.search_form_data.section_id, this.global.main.sections))
                     this.global.getSearch()
