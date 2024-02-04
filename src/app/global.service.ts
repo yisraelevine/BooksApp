@@ -30,7 +30,7 @@ export class GlobalService {
 	current_phrase = ''
 	current_offset: number | undefined
 	offsets: number[] | undefined
-	selected_page: number | undefined
+	selected_result: number | undefined
 
 	getMain(id: number, preventPushState?: boolean, mark?: boolean) {
 		this.isLoadingMain = true
@@ -42,11 +42,11 @@ export class GlobalService {
 					data.sidebar = data.sections.filter(e => e.parent_id === 0).
 						map(e => ({ ...e, children: undefined }))
 				else if (data.page) {
-					this.selected_page = id
-					data.page.text = this.replaceText(data.page.text as string)
-					data.page.text = this.makeHtmlValid(mark ?
-						this.markText(data.page.text as string, this.current_phrase) :
-						data.page.text)
+					if (this.current_phrase && mark) {
+						this.selected_result = id
+						data.page.text = this.markText(data.page.text as string, this.current_phrase)
+					}
+					data.page.text = this.makeHtmlValid(this.replaceText(data.page.text as string))
 					data.page.haoros = this.makeHtmlValid(data.page.haoros)
 				}
 				this.deepestOpenedId = data.tree?.[Math.min(1, data.tree.length - 1)]?.id
@@ -79,6 +79,7 @@ export class GlobalService {
 		})
 	}
 	getSearch(offset?: number) {
+		if (offset !== undefined && offset === this.current_offset) return
 		this.statistics = undefined
 		const phrase = this.search_form.phrase.replace(/[^א-ת"']+/g, ' ')
 		this.http.get<search>('api/search', {
@@ -102,7 +103,7 @@ export class GlobalService {
 			complete: () => {
 				this.current_offset = offset || 0
 				this.current_phrase = phrase
-				document.documentElement.scrollTop = 0
+				document.querySelector('app-results')?.scrollIntoView()
 			}
 		})
 	}
