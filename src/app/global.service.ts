@@ -32,7 +32,8 @@ export class GlobalService {
 	offsets: number[] | undefined
 	selected_result: number | undefined
 
-	getMain(id: number, preventPushState?: boolean, mark?: boolean) {
+	getMain(id: number, event?: MouseEvent, preventPushState?: boolean, mark?: boolean) {
+		event?.preventDefault()
 		this.isLoadingMain = true
 		this.http.get<main>('api/main', {
 			params: { id }, responseType: 'json'

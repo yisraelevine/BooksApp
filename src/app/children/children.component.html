@@ -1,6 +1,6 @@
 <div *ngFor="let item of global.main.children" class="flex full-width justify-space-between">
-    <span (click)="global.getMain(item.id)" class="heading clickable">{{
-        item.heading }}</span>
-    <span *ngIf="item.left" (click)="global.getMain(item.left.id)" class="heading clickable">{{
-        item.left.heading }}</span>
+    <a [href]="item.id" (click)="global.getMain(item.id, $event)">{{
+        item.heading }}</a>
+    <a [href]="item.left.id" *ngIf="item.left" (click)="global.getMain(item.left.id, $event)">{{
+        item.left.heading }}</a>
 </div>

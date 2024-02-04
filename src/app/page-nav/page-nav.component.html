@@ -1,8 +1,8 @@
 <div>
-    <span *ngIf="global.main.page!.nav.previous" (click)="global.getMain(global.main.page!.nav.previous)"
-        class="heading clickable">&lt;&lt;</span>
+    <a [href]="global.main.page!.nav.previous" *ngIf="global.main.page!.nav.previous"
+        (click)="global.getMain(global.main.page!.nav.previous, $event)">&lt;&lt;</a>
 </div>
 <div>
-    <span *ngIf="global.main.page!.nav.next" (click)="global.getMain(global.main.page!.nav.next)"
-        class="heading clickable">&gt;&gt;</span>
+    <a [href]="global.main.page!.nav.next" *ngIf="global.main.page!.nav.next"
+        (click)="global.getMain(global.main.page!.nav.next, $event)">&gt;&gt;</a>
 </div>

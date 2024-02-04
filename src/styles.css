@@ -22,7 +22,12 @@ h4 {
 a {
     text-decoration: none;
     color: #0275d8;
-    cursor: pointer;
+}
+
+
+a:hover,
+a.active {
+    color: red;
 }
 
 .light-gray-background {
@@ -127,16 +132,6 @@ a {
     width: max-content;
 }
 
-.clickable {
-    color: #0275d8;
-    cursor: pointer;
-}
-
-.clickable:hover,
-.clickable.active {
-    color: red;
-}
-
 .color-red {
     color: red;
 }
@@ -186,10 +181,12 @@ i {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 100%;
 }
 
-.overflow-x-hidden {
-    overflow-x: hidden;
+.overflow-clip {
+    overflow: clip;
+    overflow-clip-margin: 4px;
 }
 
 .width-300 {
@@ -354,7 +351,6 @@ i {
     padding: 10px;
     border-radius: 4px;
     box-shadow: 0 0 4px;
-    margin: 4px;
 }
 
 h5, h3 {
