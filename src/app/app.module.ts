@@ -15,6 +15,7 @@ import { ChildrenComponent } from './children/children.component';
 import { PageComponent } from './page/page.component';
 import { TreeComponent } from './tree/tree.component';
 import { ResultsNavComponent } from './results-nav/results-nav.component';
+import { PreventDefaultDirective } from './prevent-default.directive';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ResultsNavComponent } from './results-nav/results-nav.component';
     SearchComponent,
     StatisticsComponent,
     ResultsComponent,
-    ResultsNavComponent
+    ResultsNavComponent,
+    PreventDefaultDirective
   ],
   imports: [
     BrowserModule,

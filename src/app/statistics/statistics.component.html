@@ -1,14 +1,15 @@
 <h2 class="dark-gray-color">תוצאות החיפוש לפי המאגרים</h2>
 <div class="flex gap-5 column">
-    <div *ngFor="let item of global.statistics" class="flex justify-space-between"
-        [class.margin-start-30]="!item.is_parent">
+    <div *ngFor="let item of global.statistics" [class.margin-start-30]="!item.is_parent"
+        class="flex justify-space-between">
         <div class="flex gap-5">
             <div *ngIf="item.is_parent" class="bold dark-gray-color">נמצא במדור:</div>
-            <div class="clickable" (click)="onClick(item.section_id)" [class.bold]="item.is_parent">{{ item.heading }}</div>
+            <a [href]="statisticHref(item.section_id)" (click)="onClick(item.section_id)"
+                [class.bold]="item.is_parent">{{ item.heading }}</a>
         </div>
         <div *ngIf="!item.is_parent" class="dark-gray-color">
-            <div *ngIf="global.isLoadingStatistics" class="loader"></div>
-            <div *ngIf="!global.isLoadingStatistics">{{ item.count }}</div>
+            <div *ngIf="global.loading_statistics" class="loader"></div>
+            <div *ngIf="!global.loading_statistics">{{ item.count }}</div>
         </div>
     </div>
 </div>

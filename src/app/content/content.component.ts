@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../global.service';
-import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-content',
@@ -14,7 +13,7 @@ export class ContentComponent {
     const href = (event.target as HTMLElement).closest('a')?.getAttribute('href')
     if (href) {
       if (this.target) this.target.classList.remove('selected-comment')
-      
+
       this.target = document.getElementById(href.slice(2)) ||
         document.getElementById(href.slice(1)) ||
         document.getElementsByName(href.slice(1))[0]

@@ -5,8 +5,11 @@
 <h5 class="dark-gray-color">נמצאו {{ global.search!.count }} תוצאות</h5>
 <app-results-nav class="flex gap-5"></app-results-nav>
 <div class="flex gap-15 column">
-    <div *ngFor="let item of global.search!.results" [class.selected]="item.mafteach_id === global.selected_result">
-        <span class="clickable" (click)="global.getMain(item.mafteach_id, undefined, false, true)">{{ item.tree }}</span>
+    <div *ngFor="let item of global.search!.results"
+        [class.selected]="item.mafteach_id === global.selected_result_page">
+        <a [href]="item.mafteach_id"
+            (click)="global.selected_result_page = item.mafteach_id; global.getMain(item.mafteach_id, false, true)">{{
+            item.tree }}</a>
         <div [innerHTML]="item.text"></div>
     </div>
 </div>

@@ -7,5 +7,7 @@ import { GlobalService } from '../global.service'
 })
 export class SidebarComponent {
   constructor(public global: GlobalService) { }
-  isDeepest = (id: number) => this.global.deepestOpenedId === id
+  isDeepest(id: number) {
+    return this.global.sidebar_deepest === id
+  }
 }

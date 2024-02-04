@@ -254,10 +254,6 @@ i {
     transition-duration: 1.5s;
 }
 
-.cup {
-    font-weight: bold;
-}
-
 .search-inputs {
     border: 1px solid #72c02c;
     outline: none;
@@ -365,6 +361,6 @@ h5, h3 {
     margin-bottom: 0;
 }
 
-.selected span {
+.selected>a {
     color: red;
 }
