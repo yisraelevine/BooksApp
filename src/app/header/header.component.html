@@ -10,11 +10,11 @@
         <h2>ספריית חב"ד ליובאוויטש</h2>
         <div class="tree margin-inline-40">
             <div>
-                <a href (click)="global.getMain(0, $event)">דף הבית</a>
+                <a href (click)="global.getMain(0)">דף הבית</a>
                 <span class="no-user-select"> /</span>
             </div>
             <div *ngFor="let item of global.main.tree">
-                <a [href]="item.id" (click)="global.getMain(item.id, $event)">{{
+                <a [href]="item.id" (click)="global.getMain(item.id)">{{
                     item.heading }}</a>
                 <span class="no-user-select"> /</span>
             </div>

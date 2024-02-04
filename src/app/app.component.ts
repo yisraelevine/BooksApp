@@ -1,14 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalService } from './global.service';
+import { idInSections } from './helpers';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+    selector: 'app-root',
+    templateUrl: './app.component.html'
 })
-export class AppComponent {
-  constructor(public global: GlobalService) {
-    global.getMain(Number(window.location.pathname.replace(/\D/g, '')), undefined, true);
-    window.addEventListener('popstate', () =>
-      global.getMain(+window.location.pathname.replace(/\D/g, ''), undefined, true, true))
-  }
+export class AppComponent implements OnInit {
+    constructor(public global: GlobalService) { }
+    ngOnInit() {
+        window.addEventListener('popstate', () =>
+            this.global.getMain(+window.location.pathname.replace(/\D/g, ''), true, true))
+        this.global.getMain(+window.location.pathname.replace(/\D/g, ''), true).add(() => {
+            const url = new URL(window.location.href)
+            this.global.search_form_data.phrase = url.searchParams.get('phrase') || ''
+            this.global.search_form_data.section_id = +(url.searchParams.get('section_id') || '')
+            if (url.pathname.includes('search')) {
+                if (idInSections(this.global.search_form_data.section_id, this.global.main.sections))
+                    this.global.getSearch()
+                else this.global.getStatistics()
+            }
+        })
+    }
 }

@@ -1,5 +1,5 @@
 <div *ngFor="let item of global.main.tree let last = last">
-    <a [href]="item.id" (click)="global.getMain(item.id, $event)" class="font-size-20 bold">{{
+    <a [href]="item.id" (click)="global.getMain(item.id)" class="font-size-20 bold">{{
         item.heading }}</a>
     <span *ngIf="!last" class="font-size-20 no-user-select">&gt;</span>
 </div>

@@ -1,5 +1,5 @@
 <app-tree *ngIf="global.main.tree" class="tree"></app-tree>
 <app-children *ngIf="global.main.children" class="list"></app-children>
-<app-page *ngIf="global.main.page" (click)="pageClickEvent($event)" [class.transition-opacity]="global.isLoadingMain"
+<app-page *ngIf="global.main.page" (click)="pageClickEvent($event)" [class.transition-opacity]="global.loading_main"
     class="page"></app-page>
 <app-search *ngIf="global.main.sections" class="width-max-content flex large-gap column search-container"></app-search>
