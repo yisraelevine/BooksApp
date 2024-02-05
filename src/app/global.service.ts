@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { main, statistic, search } from './interfaces';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { changeTitle, extractSidebarFromSections, generateOffsets, generateSearch, generateStatistics, markText, pushState, replaceText } from './helpers';
+import { changeTitle, extractSidebarFromSections, generateOffsets, generateSearch, generateStatistics, markText, pushState, removeHtmlCode, replaceText } from './helpers';
 
 @Injectable({
 	providedIn: 'root'
@@ -35,15 +35,19 @@ export class GlobalService {
 			params: { id }
 		}).subscribe({
 			next: data => {
+				if (data.tree) data.tree = data.tree.map(e => ({ ...e, heading: removeHtmlCode(e.heading) }))
 				if (data.sections) data.sidebar = extractSidebarFromSections(data.sections)
 				else if (data.page) {
 					data.page.text = replaceText(data.page.text as string)
+					data.page.haoros = replaceText(data.page.haoros as string)
 					if (mark && this.current_phrase) {
 						data.page.text = markText(data.page.text as string, this.current_phrase)
 					}
-					data.page.text = this.sanitizer.bypassSecurityTrustHtml(data.page.text as string)
-					data.page.haoros = this.sanitizer.bypassSecurityTrustHtml(data.page.haoros as string)
+					data.page.text = this.makeHtmlValid(data.page.text as string)
+					data.page.haoros = this.makeHtmlValid(data.page.haoros as string)
 				}
+				else if (data.children)
+					data.children = data.children.map(e => ({ ...e, heading: removeHtmlCode(e.heading) }))
 				this.sidebar_deepest = data.tree?.[Math.min(1, data.tree.length - 1)]?.id
 				if (!preventPushState) pushState(id > 0 ? id.toString() : '')
 				changeTitle(data.tree?.at(-1)?.heading)
@@ -81,5 +85,8 @@ export class GlobalService {
 				document.querySelector('app-results')?.scrollIntoView()
 			}
 		})
+	}
+	makeHtmlValid(string: string) {
+		return this.sanitizer.bypassSecurityTrustHtml(string)
 	}
 }

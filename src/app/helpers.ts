@@ -43,10 +43,68 @@ export function markText(text: string, phrase: string, trim?: boolean) {
     return text.replaceAll(phrase, `<span class="color-red">${phrase}</span>`)
 }
 
-export function replaceText(text: string) {
-    if (!text) return ''
-    replace_array.forEach(e => text = text.replaceAll(e[0], e[1]))
-    return text
+export function replaceText(string: string) {
+    if (!string) return ''
+    replace_array.forEach(e => string = string.replaceAll(e[0], e[1]))
+    string = replaceFtnHearos(string, 'ftn_')
+    string = replaceFtnText(string, 'ftnref_')
+    return string
+}
+
+function replaceFtnHearos(text: string, phrase: string) {
+    let new_text = ''
+    let position = 0
+    while (position !== -1) {
+        const ftn_start_index = text.indexOf('[' + phrase, position)
+
+        if (ftn_start_index === -1) {
+            new_text += text.slice(position)
+            break
+        }
+        const ftn_end_index = text.indexOf(']', ftn_start_index + 1)
+        const ftn_next_index = text.indexOf('[' + phrase, ftn_end_index + 1)
+
+        const phrase_words = text.slice(ftn_start_index + 1, ftn_end_index).split('_')
+        const id = phrase_words[0] + phrase_words[1]
+        const href = `${phrase_words[0]}ref${phrase_words[1]}`
+        const haoro_name = phrase_words[2]
+        const haoro_text = text.slice(ftn_end_index + 1, ftn_next_index)
+
+        const parts = []
+        parts.push(text.slice(position, ftn_start_index))
+        parts.push(`<div id="${id}"><a href="#${href}">${haoro_name}</a>${haoro_text}</div><br/>`)
+
+        new_text += parts.join('')
+        position = ftn_next_index
+    }
+    return new_text
+}
+
+function replaceFtnText(text: string, phrase: string) {
+    let new_text = ''
+    let position = 0
+    while (position !== -1) {
+        const ftn_start_index = text.indexOf('[' + phrase, position)
+
+        if (ftn_start_index === -1) {
+            new_text += text.slice(position)
+            break
+        }
+        const ftn_end_index = text.indexOf(']', ftn_start_index + 1)
+
+        const phrase_words = text.slice(ftn_start_index + 1, ftn_end_index).split('_')
+        const id = phrase_words[0] + phrase_words[1]
+        const href = phrase_words[0].slice(0, -3) + phrase_words[1]
+        const haoro_name = phrase_words[2]
+
+        const parts = []
+        parts.push(text.slice(position, ftn_start_index))
+        parts.push(`<a href="#${href}" id="${id}">${haoro_name}</a>`)
+
+        new_text += parts.join('')
+        position = ftn_end_index + 1
+    }
+    return new_text
 }
 
 export function extractSidebarFromSections(sections: section[]): sidebar[] {

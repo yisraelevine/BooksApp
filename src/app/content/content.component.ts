@@ -18,8 +18,10 @@ export class ContentComponent {
         document.getElementById(href.slice(1)) ||
         document.getElementsByName(href.slice(1))[0]
 
-      this.target.classList.add('selected-comment')
-      this.target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      if (this.target) {
+        this.target.classList.add('selected-comment')
+        this.target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
     }
   }
 }
