@@ -15,5 +15,9 @@ export default [
     ["[/kitzur]", "</p>"],
 
     ["[kitzur_begin]", "<p class=kitzur>"],
-    ["[kitzur_end]", "</p>"]
+    ["[kitzur_end]", "</p>"],
+
+    ["[dibur_maschil]", "<b>"],
+    ["[/dibur_maschil]", "</b>"],
+
 ]

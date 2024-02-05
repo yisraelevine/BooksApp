@@ -1,3 +1,8 @@
 .cup {
     font-weight: bold;
 }
+
+.cup:not(:first-child):before {
+    content: "\a";
+    white-space: pre;
+}
