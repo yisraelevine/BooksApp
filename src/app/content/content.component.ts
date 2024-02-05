@@ -20,7 +20,7 @@ export class ContentComponent {
 
       if (this.target) {
         this.target.classList.add('selected-comment')
-        this.target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        this.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'start' })
       }
     }
   }
