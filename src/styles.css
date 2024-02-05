@@ -24,10 +24,20 @@ a {
     color: #0275d8;
 }
 
-
 a:hover,
 a.active {
     color: red;
+}
+
+nav a.active::before {
+    content: "\f115";
+}
+
+nav a::before {
+    content: "\f114";
+    font: normal normal normal 14px/1 FontAwesome;
+    margin-left: 5px;
+    color: #555;
 }
 
 .light-gray-background {
@@ -171,11 +181,6 @@ a.active {
     gap: 5px;
     flex-wrap: wrap;
 }
-
-i {
-    color: #555;
-}
-
 
 .overflow-ellipsis {
     overflow: hidden;
@@ -349,7 +354,8 @@ i {
     box-shadow: 0 0 4px;
 }
 
-h5, h3 {
+h5,
+h3 {
     margin: 0;
 }
 

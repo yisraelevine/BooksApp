@@ -54,7 +54,7 @@ export class GlobalService {
 					}))
 				this.sidebar_deepest = data.tree?.[Math.min(1, data.tree.length - 1)]?.id
 				if (!preventPushState) pushState(id > 0 ? id.toString() : '')
-				changeTitle(data.tree?.at(-1)?.heading)
+				changeTitle(data.tree?.map(e => e.heading))
 				this.main = data
 			},
 			complete: () => this.loading_main = false,

@@ -29,8 +29,14 @@ export function pushState(path: string) {
     history.pushState(null, '', './' + path)
 }
 
-export function changeTitle(name?: string) {
-    document.title = (name ? (name + ' - ') : '') + 'ספריית ליובאוויטש'
+export function changeTitle(name?: string[]) {
+    if (name) {
+        document.title = 'ספריית ליובאוויטש | ' + name.at(-1)
+        document.head.querySelector('meta[name="title"]')?.setAttribute('content', 'ספריית ליובאוויטש | ' + name.join(' | '))
+    } else {
+        document.title = 'ספריית ליובאוויטש'
+        document.head.querySelector('meta[name="title"]')?.setAttribute('content', 'ספריית ליובאוויטש')
+    }
 }
 
 export function markText(text: string, phrase: string, trim?: boolean) {
