@@ -47,7 +47,11 @@ export class GlobalService {
 					data.page.haoros = this.makeHtmlValid(data.page.haoros as string)
 				}
 				else if (data.children)
-					data.children = data.children.map(e => ({ ...e, heading: removeHtmlCode(e.heading) }))
+					data.children = data.children.map(e => ({
+						...e,
+						heading: removeHtmlCode(e.heading),
+						left: e.left ? { ...e.left, heading: removeHtmlCode(e.left.heading) } : undefined
+					}))
 				this.sidebar_deepest = data.tree?.[Math.min(1, data.tree.length - 1)]?.id
 				if (!preventPushState) pushState(id > 0 ? id.toString() : '')
 				changeTitle(data.tree?.at(-1)?.heading)

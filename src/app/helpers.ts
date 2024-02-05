@@ -2,7 +2,7 @@ import { search, section, sidebar, statistic } from './interfaces';
 import replace_array from './replace_array';
 
 export function idInSections(section_id: number, sections: section[] | undefined) {
-    return sections?.findIndex(e => e.id === section_id) !== -1
+    return sections?.findIndex(e => e.id === +section_id) !== -1
 }
 
 export function generateSearch(search: search, phrase: string): search {
@@ -10,6 +10,7 @@ export function generateSearch(search: search, phrase: string): search {
         ...search,
         results: search.results.map(e => ({
             ...e,
+            tree: removeHtmlCode(e.tree),
             text: markText(e.text, phrase, true)
         }))
     }
