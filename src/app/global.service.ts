@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { main, statistic, search } from './interfaces';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { changeTitle, extractSidebarFromSections, generateOffsets, generateSearch, generateStatistics, markText, pushState, removeHtmlCode, replaceText } from './helpers';
+import { changeHead, extractSidebarFromSections, generateOffsets, generateSearch, generateStatistics, markText, pushState, removeHtmlCode, replaceText } from './helpers';
 
 @Injectable({
 	providedIn: 'root'
@@ -54,7 +54,7 @@ export class GlobalService {
 					}))
 				this.sidebar_deepest = data.tree?.[Math.min(1, data.tree.length - 1)]?.id
 				if (!preventPushState) pushState(id > 0 ? id.toString() : '')
-				changeTitle(data.tree?.map(e => e.heading))
+				changeHead(data.tree?.map(e => e.heading))
 				this.main = data
 			},
 			complete: () => this.loading_main = false,

@@ -29,7 +29,7 @@ export function pushState(path: string) {
     history.pushState(null, '', './' + path)
 }
 
-export function changeTitle(name?: string[]) {
+export function changeHead(name?: string[]) {
     if (name) {
         document.title = 'ספריית ליובאוויטש | ' + name.at(-1)
         document.head.querySelector('meta[name="title"]')?.setAttribute('content', 'ספריית ליובאוויטש | ' + name.join(' | '))
@@ -37,6 +37,7 @@ export function changeTitle(name?: string[]) {
         document.title = 'ספריית ליובאוויטש'
         document.head.querySelector('meta[name="title"]')?.setAttribute('content', 'ספריית ליובאוויטש')
     }
+    document.head.querySelector('meta[name="keywords"]')?.setAttribute('content', name?.join(',') || '')
 }
 
 export function markText(text: string, phrase: string, trim?: boolean) {
