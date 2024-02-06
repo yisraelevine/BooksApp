@@ -20,4 +20,6 @@ export default [
     ["[dibur_maschil]", "<b>"],
     ["[/dibur_maschil]", "</b>"],
 
+    ["[quotation]", '\"'],
+    ["[/quotation]", '\"']
 ]

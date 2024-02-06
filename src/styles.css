@@ -220,6 +220,7 @@ nav a::before {
     flex-direction: column;
     gap: 10px;
     text-align: justify;
+    white-space: pre-line;
 }
 
 .split-container {
