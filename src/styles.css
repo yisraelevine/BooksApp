@@ -347,24 +347,28 @@ nav a::before {
     color: white;
 }
 
-.selected-comment:not(a) {
-    background-color: #f2f2f2;
-    padding: 10px;
-    border-radius: 4px;
-    box-shadow: 0 0 4px;
-}
-
-h5,
-h3 {
-    margin: 0;
-}
-
 .selected-comment:not(a)>*:first-child {
     margin-top: 0;
 }
 
 .selected-comment:not(a)>*:last-child {
     margin-bottom: 0;
+}
+
+.selected-comment:not(a) {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid red;
+}
+
+a.selected-comment {
+    color: red;
+    font-weight: bold;
+}
+
+h5,
+h3 {
+    margin: 0;
 }
 
 .selected>a {

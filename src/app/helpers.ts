@@ -68,8 +68,9 @@ function replaceFtnText(text: string) {
             break
         }
         const before = text.slice(index, start)
-        index = text.indexOf(']', start)
-        const parts = text.slice(start + 1, index).split('_')
+        const end = text.indexOf(']', start)
+        index = end + 1
+        const parts = text.slice(start + 1, end).split('_')
         const id = parts[0] + parts[1]
         const href = parts[0].slice(0, -3) + parts[1]
         const name = parts[2]
