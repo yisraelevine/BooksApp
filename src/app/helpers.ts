@@ -53,63 +53,48 @@ export function markText(text: string, phrase: string, trim?: boolean) {
 export function replaceText(string: string) {
     if (!string) return ''
     replace_array.forEach(e => string = string.replaceAll(e[0], e[1]))
-    string = replaceFtnHearos(string, 'ftn_')
-    string = replaceFtnText(string, 'ftnref_')
+    string = replaceFtnText(string)
+    string = replaceFtnHearos(string)
     return string
 }
 
-function replaceFtnHearos(text: string, phrase: string) {
+function replaceFtnText(text: string) {
     let new_text = ''
-    let position = 0
-    while (position !== -1) {
-        const ftn_start_index = text.indexOf('[' + phrase, position)
-
-        if (ftn_start_index === -1) {
-            new_text += text.slice(position)
+    let index = 0
+    while (index !== -1) {
+        const start = text.indexOf('[ftnref_', index)
+        if (start === -1) {
+            new_text += text.slice(index)
             break
         }
-        const ftn_end_index = text.indexOf(']', ftn_start_index + 1)
-        const ftn_next_index = text.indexOf('[' + phrase, ftn_end_index + 1)
-
-        const phrase_words = text.slice(ftn_start_index + 1, ftn_end_index).split('_')
-        const id = phrase_words[0] + phrase_words[1]
-        const href = `${phrase_words[0]}ref${phrase_words[1]}`
-        const haoro_name = phrase_words[2]
-        const haoro_text = text.slice(ftn_end_index + 1, ftn_next_index)
-
-        const parts = []
-        parts.push(text.slice(position, ftn_start_index))
-        parts.push(`<div id="${id}"><a href="#${href}">${haoro_name}</a>${haoro_text}</div><br/>`)
-
-        new_text += parts.join('')
-        position = ftn_next_index
+        const before = text.slice(index, start)
+        index = text.indexOf(']', start)
+        const parts = text.slice(start + 1, index).split('_')
+        const id = parts[0] + parts[1]
+        const href = parts[0].slice(0, -3) + parts[1]
+        const name = parts[2]
+        new_text += `${before}<a href="#${href}" id="${id}"><sup>${name}</sup></a>`
     }
     return new_text
 }
 
-function replaceFtnText(text: string, phrase: string) {
+function replaceFtnHearos(text: string) {
     let new_text = ''
-    let position = 0
-    while (position !== -1) {
-        const ftn_start_index = text.indexOf('[' + phrase, position)
-
-        if (ftn_start_index === -1) {
-            new_text += text.slice(position)
+    let index = 0
+    while (index !== -1) {
+        const start = text.indexOf('[ftn_', index)
+        if (start === -1) {
+            new_text += text.slice(index)
             break
         }
-        const ftn_end_index = text.indexOf(']', ftn_start_index + 1)
-
-        const phrase_words = text.slice(ftn_start_index + 1, ftn_end_index).split('_')
-        const id = phrase_words[0] + phrase_words[1]
-        const href = phrase_words[0].slice(0, -3) + phrase_words[1]
-        const haoro_name = phrase_words[2]
-
-        const parts = []
-        parts.push(text.slice(position, ftn_start_index))
-        parts.push(`<a href="#${href}" id="${id}">${haoro_name}</a>`)
-
-        new_text += parts.join('')
-        position = ftn_end_index + 1
+        const end = text.indexOf(']', start)
+        index = text.indexOf('[ftn_', end)
+        const parts = text.slice(start + 1, end).split('_')
+        const id = parts[0] + parts[1]
+        const href = `${parts[0]}ref${parts[1]}`
+        const haoro_name = parts[2]
+        const haoro_text = text.slice(end + 1, index === -1 ? undefined : index)
+        new_text += `<div id="${id}"><a href="#${href}">${haoro_name}</a>${haoro_text}</div><br>`
     }
     return new_text
 }
