@@ -30,13 +30,7 @@ export function pushState(path: string) {
 }
 
 export function changeHead(name?: string[]) {
-    if (name) {
-        document.title = 'ספריית ליובאוויטש | ' + name.at(-1)
-        document.head.querySelector('meta[name="title"]')?.setAttribute('content', 'ספריית ליובאוויטש | ' + name.join(' | '))
-    } else {
-        document.title = 'ספריית ליובאוויטש'
-        document.head.querySelector('meta[name="title"]')?.setAttribute('content', 'ספריית ליובאוויטש')
-    }
+    document.title = `ספריית ליובאוויטש${name ? (' | ' + name.join(' - ')) : ''}`
     document.head.querySelector('meta[name="keywords"]')?.setAttribute('content', name?.join(',') || '')
 }
 

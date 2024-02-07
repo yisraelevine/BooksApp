@@ -40,6 +40,10 @@ nav a::before {
     color: #555;
 }
 
+li {
+    list-style: none;
+}
+
 .light-gray-background {
     background-color: #f7f7f7;
 }

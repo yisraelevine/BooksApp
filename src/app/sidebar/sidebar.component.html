@@ -1,8 +1,10 @@
-<nav class="max-width-100" *ngFor="let item of global.main.sidebar">
-    <a [href]="item.id" (click)="global.getMain(item.id)" [class.active]="isDeepest(item.id)"
-        class="font-size-14 overflow-ellipsis">{{ item.heading }}</a>
-    <nav class="container list margin-start-10" *ngIf="item.children">
-        <a [href]="child.id" *ngFor="let child of item.children" (click)="global.getMain(child.id)"
-            [class.active]="isDeepest(child.id)" class="font-size-14 overflow-ellipsis">{{ child.heading }}</a>
-    </nav>
+<nav class="list width-300">
+    <li class="max-width-100" *ngFor="let item of global.main.sidebar">
+        <a [href]="item.id" (click)="global.getMain(item.id)" [class.active]="isDeepest(item.id)"
+            class="font-size-14 overflow-ellipsis">{{ item.heading }}</a>
+        <nav class="container list margin-start-10" *ngIf="item.children">
+            <a [href]="child.id" *ngFor="let child of item.children" (click)="global.getMain(child.id)"
+                [class.active]="isDeepest(child.id)" class="font-size-14 overflow-ellipsis">{{ child.heading }}</a>
+        </nav>
+    </li>
 </nav>
