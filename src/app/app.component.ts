@@ -9,9 +9,12 @@ import { idInSections } from './helpers';
 export class AppComponent implements OnInit {
     constructor(public global: GlobalService) { }
     ngOnInit() {
-        window.addEventListener('popstate', () =>
-            this.global.getMain(+window.location.pathname.replace(/\D/g, ''), true, true))
-            
+        window.addEventListener('popstate', () => {
+            const base = document.head.querySelector('base')!.getAttribute('href')
+            if (window.location.pathname === base) window.location.reload()
+            else this.global.getMain(+window.location.pathname.replace(/\D/g, ''), true, true)
+        })
+
         this.global.getMain(+window.location.pathname.replace(/\D/g, ''), true).add(() => {
             const url = new URL(window.location.href)
             const phrase = url.searchParams.get('phrase') || ''

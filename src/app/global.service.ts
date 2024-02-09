@@ -28,6 +28,7 @@ export class GlobalService {
 	selected_result_page: number | undefined
 	loading_main: boolean = false
 	loading_statistics: boolean = false
+	target: HTMLElement | undefined
 
 	getMain(id: number, preventPushState?: boolean, mark?: boolean) {
 		this.loading_main = true
@@ -54,7 +55,7 @@ export class GlobalService {
 					}))
 				this.sidebar_deepest = data.tree?.[Math.min(1, data.tree.length - 1)]?.id
 				if (!preventPushState) pushState(id > 0 ? id.toString() : '')
-				changeHead(data.tree?.map(e => e.heading))
+				changeHead(id, data.tree?.map(e => e.heading))
 				this.main = data
 			},
 			complete: () => this.loading_main = false,
@@ -92,5 +93,17 @@ export class GlobalService {
 	}
 	makeHtmlValid(string: string) {
 		return this.sanitizer.bypassSecurityTrustHtml(string)
+	}
+	commentsNavigator(hash: string) {
+		if (this.target) this.target.classList.remove('selected-comment')
+
+		this.target = document.getElementById(hash.slice(2)) ||
+		  document.getElementById(hash.slice(1)) ||
+		  document.getElementsByName(hash.slice(1))[0]
+  
+		if (this.target) {
+		  this.target.classList.add('selected-comment')
+		  this.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: this.target.tagName === 'A' ? 'center' : 'start' })
+		}
 	}
 }

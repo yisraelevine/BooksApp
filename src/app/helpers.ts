@@ -29,9 +29,10 @@ export function pushState(path: string) {
     history.pushState(null, '', './' + path)
 }
 
-export function changeHead(name?: string[]) {
+export function changeHead(path: number, name?: string[]) {
     document.title = `ספריית ליובאוויטש${name ? (' | ' + name.join(' - ')) : ''}`
     document.head.querySelector('meta[name="keywords"]')?.setAttribute('content', name?.join(',') || '')
+    document.head.querySelector('base')!.href = '/books/' + (path || '')
 }
 
 export function markText(text: string, phrase: string, trim?: boolean) {
