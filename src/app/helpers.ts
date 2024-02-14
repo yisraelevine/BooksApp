@@ -51,6 +51,7 @@ export function replaceText(string: string) {
     replace_array.forEach(e => string = string.replaceAll(e[0], e[1]))
     string = replaceFtnText(string)
     string = replaceFtnHearos(string)
+    string = string.replace(/>\s+</g, '> <')
     return string
 }
 
