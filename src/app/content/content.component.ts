@@ -10,6 +10,7 @@ export class ContentComponent {
   pageClickEvent(event: MouseEvent) {
     event.preventDefault()
     const href = (event.target as HTMLElement).closest('a')?.getAttribute('href')
-    if (href) this.global.commentsNavigator(href)
+    if (!href) return
+    this.global.commentsNavigator(href)
   }
 }

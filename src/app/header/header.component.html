@@ -1,8 +1,8 @@
 <div class="wide-flex-container justify-space-between">
     <h4 class="dark-gray-color">בס"ד</h4>
     <div class="flex large-gap">
-        <a href="https://chabadlibrary.org/catalog">קטלוג</a>
-        <a href="https://chabadlibrary.org">מסך ראשי</a>
+        <a href="https://chabadlibrary.org/catalog" no-prevent>קטלוג</a>
+        <a href="https://chabadlibrary.org" no-prevent>מסך ראשי</a>
     </div>
 </div>
 <div class="light-gray-background">
@@ -13,11 +13,13 @@
                 <a href (click)="global.getMain(0)">דף הבית</a>
                 <span class="no-user-select"> /</span>
             </div>
-            <div *ngFor="let item of global.main.tree">
+            @for (item of global.main.tree; track item.id) {
+            <div>
                 <a [href]="item.id" (click)="global.getMain(item.id)">{{
                     item.heading }}</a>
                 <span class="no-user-select"> /</span>
             </div>
+            }
         </div>
     </div>
 </div>

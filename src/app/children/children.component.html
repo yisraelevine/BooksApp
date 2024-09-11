@@ -1,6 +1,10 @@
-<div *ngFor="let item of global.main.children" class="flex full-width justify-space-between">
+@for (item of global.main.children; track item.id) {
+<div class="flex full-width justify-space-between">
     <a [href]="item.id" (click)="global.getMain(item.id)">{{
         item.heading }}</a>
-    <a [href]="item.left.id" *ngIf="item.left" (click)="global.getMain(item.left.id)">{{
+    @if (item.left) {
+    <a [href]="item.left.id" (click)="global.getMain(item.left.id)">{{
         item.left.heading }}</a>
+    }
 </div>
+}

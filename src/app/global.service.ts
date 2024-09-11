@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { main, statistic, search } from './interfaces';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { changeHead, extractSidebarFromSections, generateOffsets, generateSearch, generateStatistics, markText, pushState, removeHtmlCode, replaceText } from './helpers';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class GlobalService {
 	selected_result_page: number | undefined
 	loading_main: boolean = false
 	loading_statistics: boolean = false
-	target: HTMLElement | undefined
+	target: Element | null = null
 
 	getMain(id: number, preventPushState?: boolean, mark?: boolean) {
 		this.loading_main = true
@@ -96,14 +96,9 @@ export class GlobalService {
 	}
 	commentsNavigator(hash: string) {
 		if (this.target) this.target.classList.remove('selected-comment')
-
-		this.target = document.getElementById(hash.slice(2)) ||
-		  document.getElementById(hash.slice(1)) ||
-		  document.getElementsByName(hash.slice(1))[0]
-  
-		if (this.target) {
-		  this.target.classList.add('selected-comment')
-		  this.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: this.target.tagName === 'A' ? 'center' : 'start' })
-		}
+		this.target = document.querySelector(`#${hash.slice(2)}, #${hash.slice(1)}, [name=${hash.slice(1)}]`)
+		if (!this.target) return
+		this.target.classList.add('selected-comment')
+		this.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: this.target.tagName === 'A' ? 'center' : 'start' })
 	}
 }
